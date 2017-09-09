@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Jquery Demo</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form>
+        <div>
+            <img id="image" src="">
+            <input id="imgInp" type="file">
+        </div>
+        <div>
+            <span>左上：</span>
+            <input type="text">           
+            <span>左下：</span>
+            <input type="text">
+        </div>
+        <div>
+             <span>右上：</span>
+             <input type="text">
+             <span>右下：</span>
+             <input type="text">
+        </div>
+        <div>
+            第一點：<input type="text" name="firstPoint">
+            第二點：<input type="text" name="secondPoint">
+        </div>
+    </form>
+
+</body>
+<script>
+    
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#image').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function(){
+    readURL(this);
+});
+    
+$("#image").click(function(e){
+    var posX = $(this).position().left
+    var posY = $(this).position().top;
+    
+    var position = "(" + (e.pageX - posX) + "," + (e.pageY - posY) + ")"
+    
+    if ($("input[name='firstPoint']").val().length == 0) {
+        $("input[name='firstPoint']").val(position)
+    }else{
+        $("input[name='secondPoint']").val(position)
+    }
+})
+</script>
+</html>
